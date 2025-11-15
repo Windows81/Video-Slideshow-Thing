@@ -104,13 +104,13 @@
 
 		var isStarted = false;
 		async function startPlayback() {
+			document.body.removeEventListener("click", startPlayback);
 			await nextAudio();
 			await nextVideo();
 			await document.body.requestFullscreen();
 			if (isStarted)
 				return;
 			isStarted = true;
-			document.body.removeEventListener("click", startPlayback);
 		}
 
 		document.body.addEventListener("click", startPlayback);
