@@ -66,10 +66,10 @@
 			for (var e of elemTable)
 				if (e != elem) {
 					e.hidden = true;
-					elem.pause();
+					e.pause();
 				} else {
 					e.hidden = false;
-					await elem.play();
+					await e.play();
 				}
 		}
 
