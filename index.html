@@ -31,8 +31,8 @@
 	<div id="label">
 		Click to Play
 	</div>
-	<script type="module">
-		async function genElements(typeName, nums) {
+	<script>
+		function genElements(typeName, nums) {
 			const elems = [];
 			var count = 0;
 			for (var c of nums) {
@@ -57,8 +57,8 @@
 			return [elems, count];
 		}
 
-		const [elemsVideo, VIDEO_TRACK_COUNT] = await genElements('video', Array.from(Array(2).keys()));
-		const [elemsAudio, AUDIO_TRACK_COUNT] = await genElements('audio', Array.from(Array(5).keys()));
+		const [elemsVideo, VIDEO_TRACK_COUNT] = genElements('video', Array.from(Array(2).keys()));
+		const [elemsAudio, AUDIO_TRACK_COUNT] = genElements('audio', Array.from(Array(5).keys()));
 
 		async function play(elemTable, index) {
 			var elem = elemTable[index];
@@ -67,11 +67,11 @@
 			await elem.play();
 		}
 
-		function playAudio(index) {
+		async function playAudio(index) {
 			return play(elemsAudio, index);
 		}
 
-		function playVideo(index) {
+		async function playVideo(index) {
 			return play(elemsVideo, index);
 		}
 
