@@ -32,9 +32,10 @@
 		Click to Play
 	</div>
 	<script type="module">
-		async function genElements(typeName, count) {
+		async function genElements(typeName, nums) {
 			const elems = [];
-			for (var c = 0; c < count; c++) {
+			var count = 0;
+			for (var c of nums) {
 				var elem = document.createElement(typeName);
 				switch (typeName) {
 					case 'audio':
@@ -47,14 +48,16 @@
 					default:
 						return;
 				}
+				elem.looped = true;
 				elem.src = filePath;
 				elems.push(elem);
+				count++;
 			}
 			return [elems, count];
 		}
 
 		const [elemsVideo, VIDEO_TRACK_COUNT] = await genElements('video', 2);
-		const [elemsAudio, AUDIO_TRACK_COUNT] = await genElements('audio', 13);
+		const [elemsAudio, AUDIO_TRACK_COUNT] = await genElements('audio', Array.from(Array(5).keys()));
 
 		async function play(elemTable, index) {
 			for (var e of elemTable) e.pause();
