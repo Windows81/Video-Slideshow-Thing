@@ -15,9 +15,9 @@
 		#label {
 			text-transform: uppercase;
 			font-family: monospace;
-			text-align: center;
 			align-content: center;
 			margin: 10pt;
+			position: absolute;
 			z-index: -1;
 		}
 	</style>
@@ -99,13 +99,12 @@
 
 		var isStarted = false;
 		async function startPlayback() {
-			document.body.removeEventListener("click", startPlayback);
-			await nextAudio();
-			await nextVideo();
-			await document.body.requestFullscreen();
 			if (isStarted)
 				return;
 			isStarted = true;
+			await nextAudio();
+			await nextVideo();
+			await document.body.requestFullscreen();
 		}
 
 		document.body.addEventListener("click", startPlayback);
