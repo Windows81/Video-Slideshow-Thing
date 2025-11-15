@@ -48,21 +48,22 @@
 					default:
 						return;
 				}
-				elem.looped = true;
+				elem.hidden = true;
 				elem.src = filePath;
 				elems.push(elem);
+				document.body.appendChild(elem);
 				count++;
 			}
 			return [elems, count];
 		}
 
-		const [elemsVideo, VIDEO_TRACK_COUNT] = await genElements('video', 2);
+		const [elemsVideo, VIDEO_TRACK_COUNT] = await genElements('video', Array.from(Array(2).keys()));
 		const [elemsAudio, AUDIO_TRACK_COUNT] = await genElements('audio', Array.from(Array(5).keys()));
 
 		async function play(elemTable, index) {
-			for (var e of elemTable) e.pause();
 			var elem = elemTable[index];
-			document.body.appendChild(elem);
+			for (var e of elemTable)
+				e.hidden = (e != elem);
 			await elem.play();
 		}
 
@@ -76,7 +77,7 @@
 
 		var indexAudio = Math.floor(Math.random() * AUDIO_TRACK_COUNT);
 		function nextAudio() {
-			playAudio(indexAudio).then(() => {
+			return playAudio(indexAudio).then(() => {
 				indexAudio += 1;
 				indexAudio %= AUDIO_TRACK_COUNT;
 			});
@@ -84,7 +85,7 @@
 
 		var indexVideo = 0;
 		function nextVideo() {
-			playVideo(indexVideo).then(() => {
+			return playVideo(indexVideo).then(() => {
 				indexVideo += 1;
 				indexVideo %= VIDEO_TRACK_COUNT;
 			});
@@ -97,8 +98,8 @@
 
 		var isStarted = false;
 		async function startPlayback() {
-			await playAudio(0);
-			await playVideo(0);
+			await nextAudio();
+			await nextVideo();
 			await document.body.requestFullscreen();
 			if (isStarted)
 				return;
