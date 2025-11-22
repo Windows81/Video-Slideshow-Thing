@@ -66,14 +66,12 @@
 
 		async function play(elemTable, index) {
 			var elem = elemTable[index];
-			for (var e of elemTable)
-				if (e != elem) {
-					e.hidden = true;
-					e.pause();
-				} else {
-					e.hidden = false;
-					await e.play();
-				}
+			for (var e of elemTable) {
+				e.hidden = true;
+				e.pause();
+			}
+			elem.hidden = false;
+			await elem.play();
 		}
 
 		async function playAudio(index) {
