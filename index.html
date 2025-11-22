@@ -17,6 +17,9 @@
 			font-family: monospace;
 			align-content: center;
 			margin: 10pt;
+			height: 100%;
+			text-align: center;
+			width: 100%;
 			position: absolute;
 			z-index: -1;
 		}
@@ -29,10 +32,12 @@
 	</div>
 	<script>
 		function genElements(typeName, nums) {
-			const elems = [];
+			const elems = {};
 			var count = 0;
 			for (var c of nums) {
-				var elem = document.createElement(typeName);
+				if (elems[c])
+					continue;
+				var elem = elems[c] = document.createElement(typeName);
 				switch (typeName) {
 					case 'audio':
 						var filePath = 'audio-' + String(c).padStart(3, '0') + '.mp3';
@@ -46,11 +51,14 @@
 				}
 				elem.hidden = true;
 				elem.src = filePath;
-				elems.push(elem);
 				document.body.appendChild(elem);
 				count++;
 			}
-			return [elems, count];
+
+			let result = [];
+			for (var c of nums)
+				result.push(elems[c]);
+			return [result, nums.length];
 		}
 
 		const [elemsVideo, VIDEO_TRACK_COUNT] = genElements('video', [1, 1, 1, 0, 2, 2, 2, 0]);
@@ -101,10 +109,10 @@
 		async function startPlayback() {
 			if (isStarted)
 				return;
-			isStarted = true;
 			await nextAudio();
 			await nextVideo();
 			await document.body.requestFullscreen();
+			isStarted = true;
 		}
 
 		document.body.addEventListener("click", startPlayback);
