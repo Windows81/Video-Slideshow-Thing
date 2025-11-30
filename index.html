@@ -38,18 +38,20 @@
 				if (elems[c])
 					continue;
 				var elem = elems[c] = document.createElement(typeName);
+				var ext;
 				switch (typeName) {
 					case 'audio':
-						var filePath = 'audio-' + String(c).padStart(3, '0') + '.mp3';
+						ext = '.mp3'
 						break;
 					case 'video':
-						var filePath = 'video-' + String(c).padStart(3, '0') + '.mp4';
+						ext = '.mp4'
 						elem.muted = true;
 						elem.preload = true;
 						break;
 					default:
 						return;
 				}
+				var filePath = typeName + '-' + String(c).padStart(3, '0') + ext + '?t=' + Date.now();
 				elem.hidden = true;
 				elem.src = filePath;
 				document.body.appendChild(elem);
