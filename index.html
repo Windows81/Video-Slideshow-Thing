@@ -64,7 +64,7 @@
 			return [result, nums.length];
 		}
 
-		const [elemsVideo, VIDEO_TRACK_COUNT] = genElements('video', [1, 1, 0, 2, 2, 2, 0]);
+		const [elemsVideo, VIDEO_TRACK_COUNT] = genElements('video', [1, 2, 0, 2, 2, 2, 0]);
 		const [elemsAudio, AUDIO_TRACK_COUNT] = genElements('audio', [...Array(13).keys()]);
 
 		async function play(elemTable, index) {
