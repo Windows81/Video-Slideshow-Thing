@@ -115,9 +115,9 @@
 			if (isStarted)
 				return;
 			try {
-				document.body.requestFullscreen();
 				await nextAudio();
 				await nextVideo();
+				document.body.requestFullscreen();
 				isStarted = true;
 			} catch (m) {
 				alert(String(m));
