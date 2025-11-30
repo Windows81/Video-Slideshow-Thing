@@ -62,7 +62,7 @@
 			return [result, nums.length];
 		}
 
-		const [elemsVideo, VIDEO_TRACK_COUNT] = genElements('video', [1, 1, 1, 3, 2, 2, 2, 3]);
+		const [elemsVideo, VIDEO_TRACK_COUNT] = genElements('video', [1, 1, 0, 2, 2, 2, 0]);
 		const [elemsAudio, AUDIO_TRACK_COUNT] = genElements('audio', [...Array(13).keys()]);
 
 		async function play(elemTable, index) {
@@ -74,8 +74,9 @@
 				if (e == elem)
 					continue;
 				e.hidden = true;
-				e.pause();
+				await e.pause();
 			}
+			elem.currentTime = 0;
 			elem.hidden = false;
 			await elem.play();
 		}
