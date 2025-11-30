@@ -114,10 +114,10 @@
 		async function startPlayback() {
 			if (isStarted)
 				return;
+			document.body.requestFullscreen();
 			return Promise.all([
 				nextAudio(),
 				nextVideo(),
-				document.body.requestFullscreen(),
 			]).then(() => {
 				isStarted = true;
 			}).catch((m) => {
