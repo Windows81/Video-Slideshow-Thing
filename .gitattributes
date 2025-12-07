@@ -1,5 +1,0 @@
-video-000-.mp4 filter=lfs diff=lfs merge=lfs -text
-video-000.mp4 filter=lfs diff=lfs merge=lfs -text
-video-001.mp4 filter=lfs diff=lfs merge=lfs -text
-video-002.mp4 filter=lfs diff=lfs merge=lfs -text
-video-003.mp4 filter=lfs diff=lfs merge=lfs -text
